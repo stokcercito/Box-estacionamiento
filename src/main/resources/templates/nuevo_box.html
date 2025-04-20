@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registrar Nuevo Box de Estacionamiento</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+    
+     <div th:fragment="formBox (boxn)">
+     <p th:text="'Debug (en fragmento): boxn=' + ${boxn}"></p>
+     
+    <h1 class="mt-4" th:text="'Registrar Nuevo Box'"></h1>
+
+    <form th:action="@{/procesos/guardar_box}" th:object="${boxn}" method="post">
+        <div class="form-group">
+            <label for="zona">Zona:</label>
+            <!-- Asegurar comillas en el atributo th:action y evitar errores sintácticos -->
+            <input type="number" class="form-control" id="zona" th:field="*{zona}" required min="1" max="2" placeholder="Ingrese la zona (1 o 2)">
+        </div>
+        <div class="form-group">
+            <label for="disponibilidad">Disponibilidad:</label>
+            <!-- Agregar valores que coincidan con el Enum exacto (LIBRE, OCUPADO) -->
+            <select class="form-control" id="disponibilidad" th:field="*{disponibilidad}" required>
+                <option value="" disabled selected>Seleccione disponibilidad</option>
+                <option value="libre">Libre</option>
+                <option value="ocupado">Ocupado</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+    </form>
+</div>
+
+    </div>
+</body>
+</html>

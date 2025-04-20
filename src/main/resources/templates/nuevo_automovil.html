@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Registrar Nuevo Automóvil</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div th:fragment="formAuto (auto)">
+            <h1 class="mt-4" th:text="${'Registrar Nuevo Automóvil'}"></h1>
+            <form th:action=@{/procesos/guardar_auto} th:object="${auto}" method="post">
+                 <div class="form-group">
+                    <label for="marca">Marca:</label>
+                    <input type="text" class="form-control" id="marca" th:field="*{marca}" required>
+                </div>
+                <div class="form-group">
+                    <label for="modelo">Modelo:</label>
+                    <input type="text" class="form-control" id="modelo" th:field="*{modelo}" required>
+                </div>
+                <div class="form-group">
+				    <label for="color">Color:</label>
+				    <input type="text" class="form-control" id="color" th:field="*{color}" required
+				           pattern="[A-Za-z]{4,10}" title="Ingrese solo letras entre 4 y 10 caracteres">
+				</div>
+
+				<div class="form-group">
+				    <label for="duenio">Dueño (DNI, 8 dígitos):</label>
+				    <input type="text" class="form-control" id="duenio" th:field="*{duenio}" required 
+				           pattern="\d{8}" title="Ingrese solo números de 8 dígitos">
+				</div>
+
+                <div class="form-group">
+                    <label for="estado">Estado:</label>
+                    <select class="form-control" id="estado" th:field="*{estado}">
+                        <option value="true">activo</option>
+                    </select>
+                </div>
+                <!-- Campo adicional solo para procesos con box 
+                <div class="form-group" th:if="${boxId != null}">
+                    <label for="horas_de_uso">Horas de Uso:</label>
+                    <input type="number" class="form-control" id="horas_de_uso" name="horas_de_uso" min="1" max="24" required>
+                </div> -->
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

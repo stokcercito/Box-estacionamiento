@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Boxes de Estacionamiento</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Boxes de Estacionamiento</h1>
+        <a href="/boxes/nuevo" class="btn btn-primary mb-4">Registrar Nuevo Box</a>
+        <div class="row">
+            <div class="col-md-4" th:each="box : ${boxes}">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Box ID: <span th:text="${box.id}"></span></h5>
+                        <p class="card-text">Zona: <span th:text="${box.zona}"></span></p>
+                        <p class="card-text">Disponibilidad: 
+                               <span th:text="${box.disponibilidad == T(com.agustin.SistemaEstacionamiento.model.Disponibilidad).libre ? 'libre' : 'ocupado'}"></span>
+                            
+                        </p>
+                        <a th:href="@{'/seleccionar_automovil/' + ${box.id}}" class="btn btn-primary">Seleccionar Automóvil</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

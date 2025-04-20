@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Seleccionar Automóvil</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Seleccionar Automóvil para Box ID: <span th:text="${boxId}"></span></h1>
+
+        <!-- Formulario de selección de automóvil y horas de uso -->
+        <form th:action="@{/procesos/procesar_seleccion}" method="post">
+            <input type="hidden" name="boxId" th:value="${boxId}">
+
+            <div class="form-group">
+                <label for="automovilId">Automóvil:</label>
+                <select class="form-control" id="automovilId" name="automovilId" required>
+                    <option value="">Seleccione un automóvil</option>
+                    <option th:each="automovil : ${automovilesFiltradosT}" th:value="${automovil.id}" th:text="${automovil.marca + ' ' + automovil.modelo + ' - ' + automovil.duenio}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="horas_de_uso">Horas de Uso:</label>
+                <input type="number" class="form-control" id="horas_de_uso" name="horas_de_uso" required min="1" max="24">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar Selección</button>
+        </form>
+
+        <!-- Botón para registrar un nuevo automóvil -->
+        <div class="mt-3">
+            <p>¿No encuentra su auto? Regístrelo aquí:</p>
+            <button class="btn btn-secondary" onclick="mostrarFormularioNuevoAuto()">Registrar Nuevo Automóvil</button>
+        </div>
+
+        <!-- Formulario para registrar un nuevo automóvil (fragmento reutilizable) -->
+        <div id="formNuevoAuto" class="mt-4" style="display: none;">
+            <div th:include="nuevo_automovil :: formAuto(${boxId}, ${automovil})"></div>
+        </div>
+    </div>
+
+    <script>
+        function mostrarFormularioNuevoAuto() {
+            document.getElementById("formNuevoAuto").style.display = "block";
+        }
+    </script>
+</body>
+</html>
